@@ -19,15 +19,22 @@
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">Articles</h1>
-                <div class="btn-toolbar mb-2 mb-md-0">
-                    <a href="/admin/post/create.php" class="btn btn-success">
-                        Nouvel article
-                    </a>
-                </div>
+                <h1 class="h2">Créer une nouvelle catégorie</h1>
             </div>
 
-
+            <form>
+                <div class="form-group row">
+                    <label for="title" class="col-sm-2 col-form-label">Titre</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="title" name="title">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-10 offset-sm-2">
+                        <button type="submit" class="btn btn-primary">Enregistrer</button>
+                    </div>
+                </div>
+            </form>
 
         </main>
     </div>
