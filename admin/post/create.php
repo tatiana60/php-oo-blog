@@ -30,6 +30,22 @@
                     </div>
                 </div>
                 <div class="form-group row">
+                    <label for="category" class="col-sm-2 col-form-label">Catégorie</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" id="category" name="category">
+                            <option value="">Choisir</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="author" class="col-sm-2 col-form-label">Auteur</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" id="author" name="author">
+                            <option value="">Choisir</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
                     <label for="content" class="col-sm-2 col-form-label">Contenu</label>
                     <div class="col-sm-10">
                         <textarea class="form-control" id="content" name="content"></textarea>
