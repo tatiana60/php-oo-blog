@@ -1,5 +1,22 @@
 <!-- Require bootstrap -->
-<?php require '../../bootstrap.php'; ?>
+<?php require '../../bootstrap.php';
+
+use Entity\Category;
+use Manager\CategoryManager;
+
+$manager = new CategoryManager($connection);
+
+$category = new Category();
+
+if(isset($_POST['category_create'])) {
+    $category->setTitle($_POST['title']);
+
+    $manager->insert($category);
+
+    header('Location: ../category/');
+}
+
+?>
 <!doctype html>
 <html lang="fr">
 <head>
@@ -31,7 +48,7 @@
                 </div>
                 <div class="form-group row">
                     <div class="col-sm-10 offset-sm-2">
-                        <button type="submit" class="btn btn-primary">Enregistrer</button>
+                        <button type="submit" name="category_create" class="btn btn-primary">Enregistrer</button>
                     </div>
                 </div>
             </form>

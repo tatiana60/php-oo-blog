@@ -1,5 +1,14 @@
 <!-- Require bootstrap -->
-<?php require '../../bootstrap.php'; ?>
+<?php require '../../bootstrap.php';
+
+use Repository\AuthorRepository;
+
+$repository = new AuthorRepository($connection);
+
+$authors = $repository->findAll();
+
+
+?>
 <!doctype html>
 <html lang="fr">
 <head>
@@ -27,7 +36,43 @@
                 </div>
             </div>
 
-            <!-- TODO Add content here -->
+            <table class="table">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>Nom</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php
+                foreach ($authors as $author) {
+                    ?>
+                    <tr>
+                        <td>
+                            # <?= $author->getId() ?>
+                        </td>
+                        <td>
+                            <a href="/admin/author/read.php?id=<?= $author->getId() ?>">
+                                <?= $author->getName() ?>
+                            </a>
+                        </td>
+                        <td class="text-right">
+                            <a href="/admin/author/update.php?id=<?= $author->getId() ?>" class="btn btn-sm btn-warning">
+                                Modifier
+                            </a>
+                            <a href="/admin/author/delete.php?id=<?= $author->getId() ?>" class="btn btn-sm btn-danger">
+                                Supprimer
+                            </a>
+                        </td>
+                    </tr>
+
+                    <?php
+                }
+                ?>
+
+                </tbody>
+            </table>
 
         </main>
     </div>

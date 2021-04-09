@@ -1,5 +1,12 @@
 <!-- Require bootstrap -->
-<?php require '../../bootstrap.php'; ?>
+<?php require '../../bootstrap.php';
+
+use Repository\CategoryRepository;
+
+$repository = new CategoryRepository($connection);
+
+$categories =  $repository->findAll();
+?>
 <!doctype html>
 <html lang="fr">
 <head>
@@ -27,6 +34,43 @@
                 </div>
             </div>
 
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nom</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php
+                foreach ($categories as $category) {
+                    ?>
+                    <tr>
+                        <td>
+                            # <?= $category->getId() ?>
+                        </td>
+                        <td>
+                            <a href="/admin/author/read.php?id=<?= $category->getId() ?>">
+                                <?= $category->getTitle() ?>
+                            </a>
+                        </td>
+                        <td class="text-right">
+                            <a href="/admin/author/update.php?id=<?= $category->getId() ?>" class="btn btn-sm btn-warning">
+                                Modifier
+                            </a>
+                            <a href="/admin/author/delete.php?id=<?= $category->getId() ?>" class="btn btn-sm btn-danger">
+                                Supprimer
+                            </a>
+                        </td>
+                    </tr>
+
+                    <?php
+                }
+                ?>
+
+                </tbody>
+            </table>
 
 
         </main>
