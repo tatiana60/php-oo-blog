@@ -4,7 +4,7 @@
 
 require '../../bootstrap.php';
 /** @var PDO $connection */
-use Repository\AuthorRepository;
+use Repository\CategoryRepository;
 // Récupérer l'auteur d'après le paramètre d'URL
 // Récupérer l'identifiant dans les paramètres d'URL ($_GET)
 if(isset($_GET['id'])) {
@@ -14,18 +14,18 @@ if(isset($_GET['id'])) {
     exit();
 }
 
-$repository = new AuthorRepository($connection);
+$repository = new CategoryRepository($connection);
 
-$author = $repository->findOneById($id);
+$category = $repository->findOneById($id);
 
 
 // Si le formulaire a été soumis et la case de confirmation est cochée
-if (isset($_POST['author_delete']) && ($_POST['confirm'] === '1')) {
+if (isset($_POST['category_delete']) && ($_POST['confirm'] === '1')) {
     // Supprimer l'auteur de la base de données
-    $info = $repository->delete($author);
+    $info = $repository->delete($category);
     // Rediriger l'internaute vers la page index
     if($info == 1) {
-        header('Location: /admin/author/index.php');
+        header('Location: /admin/category/index.php');
     } else {
         http_response_code(403);
         exit();
@@ -54,7 +54,7 @@ if (isset($_POST['author_delete']) && ($_POST['confirm'] === '1')) {
                 <h1 class="h2">Supprimer l'auteur</h1>
             </div>
 
-            <form action="/admin/author/delete.php?id=<?= $author->getId() ?>" method="post"><!-- TODO action -->
+            <form action="/admin/category/delete.php?id=<?= $category->getId() ?>" method="post"><!-- TODO action -->
                 <div class="form-group row">
                     <div class="col-sm-10">
                         <div class="form-check">
@@ -67,7 +67,7 @@ if (isset($_POST['author_delete']) && ($_POST['confirm'] === '1')) {
                 </div>
                 <div class="form-group row">
                     <div class="col-sm-10 offset-sm-2">
-                        <button name="author_delete" type="submit" class="btn btn-danger" value="1">
+                        <button name="category_delete" type="submit" class="btn btn-danger" value="1">
                             Supprimer
                         </button>
                     </div>

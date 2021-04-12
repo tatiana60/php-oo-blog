@@ -1,10 +1,10 @@
 <?php
 
-// admin/author/read.php
+// admin/category/read.php
 
 require '../../bootstrap.php';
 
-use Repository\AuthorRepository;
+use Repository\CategoryRepository;
 
 // Récupérer l'identifiant dans les paramètres d'URL ($_GET)
 if(isset($_GET['id'])) {
@@ -14,9 +14,9 @@ if(isset($_GET['id'])) {
     exit();
 }
 
-$repository = new AuthorRepository($connection);
+$repository = new CategoryRepository($connection);
 
-$author = $repository->findOneById($id);
+$category = $repository->findOneById($id);
 // Utiliser la méthode findOneById() de la classe AuthorRepository
 // pour récupérer l'auteur correspondant à l'identifiant
 
@@ -40,16 +40,16 @@ $author = $repository->findOneById($id);
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
             <div class="pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">Détail de l'utilisateur</h1>
+                <h1 class="h2">Détail de la catégorie</h1>
             </div>
 
             <p>
                 <!-- Boutons Modifier / Supprimer -->
                 <td class="text-right">
-                    <a href="update.php?id=<?= $author->getId() ?>" class="btn btn-sm btn-warning">
+                    <a href="update.php?id=<?= $category->getId() ?>" class="btn btn-sm btn-warning">
                         Modifier
                     </a>
-                    <a href="delete.php?id=<?= $author->getId() ?>" class="btn btn-sm btn-danger">
+                    <a href="delete.php?id=<?= $category->getId() ?>" class="btn btn-sm btn-danger">
                         Supprimer
                     </a>
                 </td>
@@ -60,13 +60,13 @@ $author = $repository->findOneById($id);
                 <tr>
                     <th>ID</th>
                     <td>
-                        #<?= $author->getId() ?>
+                        #<?= $category->getId() ?>
                     </td>
                 </tr>
                 <tr>
                     <th>Nom</th>
                     <td>
-                        <?= $author->getName() ?>
+                        <?= $category->getTitle() ?>
                     </td>
                 </tr>
                 </tbody>

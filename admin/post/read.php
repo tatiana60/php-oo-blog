@@ -1,12 +1,16 @@
 <?php
 
-// admin/post/index.php
+// admin/post/read.php
 
 require '../../bootstrap.php';
 /** @var PDO $connection */
+
+
 use Repository\PostRepository;
 use Repository\AuthorRepository;
 use Repository\CategoryRepository;
+
+$id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
 $categoryRepository = new CategoryRepository($connection);
 $authorRepository = new AuthorRepository($connection);
@@ -17,13 +21,12 @@ $repository = new PostRepository(
     $authorRepository
 );
 
-if (null === $posts = $repository->findAll()) {
+if (null === $post = $repository->findOneById($id)) {
     http_response_code(404);
     exit;
 }
 
 ?>
-
 <!doctype html>
 <html lang="fr">
 <head>
@@ -43,7 +46,7 @@ if (null === $posts = $repository->findAll()) {
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">Articles</h1>
+                <h1 class="h2">Détail de l'article</h1>
                 <div class="btn-toolbar mb-2 mb-md-0">
                     <a href="/admin/post/create.php" class="btn btn-success">
                         Nouvel article
@@ -52,56 +55,60 @@ if (null === $posts = $repository->findAll()) {
             </div>
 
             <table class="table">
-                <thead>
+                <tbody>
                 <tr>
                     <th>ID</th>
-                    <th>Titre</th>
-                    <th>Catégorie</th>
-                    <th>Auteur</th>
-                    <th>Date</th>
-                    <th>Action</th>
+                    <td>
+                        # <?= $post->getId() ?>
+                    </td>
                 </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($posts as $post) {
-                    ?>
-                    <tr>
-                        <td>
-                            # <?= $post->getId() ?>
-                        </td>
-                        <td>
-                            <a href="/admin/post/read.php?id=<?= $post->getId() ?>">
-                                <?= $post->getTitle() ?>
-                            </a>
-                        </td>
-                        <td>
-                            <a href="/admin/category/read.php?id=<?= $post->getCategory()->getId() ?>">
+                <tr>
+                    <th>Titre</th>
+                    <td>
+                       <?= $post->getTitle() ?>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Catégorie</th>
+                    <td>
+                        <a href="/admin/category/read.php?id=<?= $post->getCategory()->getId() ?>">
                                  <?= $post->getCategory()->getTitle() ?>
                             </a>
-                        </td>
-                        <td>
-                            <a href="/admin/author/read.php?id=<?= $post->getAuthor()->getId() ?>">
+                    </td>
+                </tr>
+                <tr>
+                    <th>Auteur</th>
+                    <td>
+                        <a href="/admin/author/read.php?id=<?= $post->getAuthor()->getId() ?>">
                                  <?= $post->getAuthor()->getName() ?>
                             </a>
-                        </td>
-                        <td>
-                            <?= $post->getDate()->format('Y-m-d') ?>
-                        </td>
-                        <td class="text-right">
-                            <a href="/admin/post/update.php?id=<?= $post->getId() ?>" class="btn btn-sm btn-warning">
-                                Modifier
-                            </a>
-                            <a href="/admin/post/delete.php?id=<?= $post->getId() ?>" class="btn btn-sm btn-danger">
-                                Supprimer
-                            </a>
-                        </td>
-                    </tr>
-
-                    <?php
-                }
-                ?>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Contenu</th>
+                    <td>
+                        <?= $post->getContent() ?>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Date</th>
+                    <td>
+                        <?= $post->getDate()->format('d/m/Y') ?>
+                    </td>
+                </tr>
                 </tbody>
             </table>
+
+            <p class="text-right">
+                <a href="/admin/post/update.php?id=<?= $post->getId() ?>"
+                   class="btn btn-sm btn-warning">
+                    Modifier
+                </a>
+                <a href="/admin/post/delete.php?id=<?= $post->getId() ?>"
+                   class="btn btn-sm btn-danger">
+                    Supprimer
+                </a>
+            </p>
 
         </main>
     </div>

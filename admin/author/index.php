@@ -39,9 +39,9 @@ $authors = $repository->findAll();
             <table class="table">
                 <thead>
                 <tr>
-                    <th></th>
+                    <th>ID</th>
                     <th>Nom</th>
-                    <th></th>
+                    <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>

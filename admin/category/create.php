@@ -39,7 +39,7 @@ if(isset($_POST['category_create'])) {
                 <h1 class="h2">Créer une nouvelle catégorie</h1>
             </div>
 
-            <form>
+            <form method="POST" action="">
                 <div class="form-group row">
                     <label for="title" class="col-sm-2 col-form-label">Titre</label>
                     <div class="col-sm-10">

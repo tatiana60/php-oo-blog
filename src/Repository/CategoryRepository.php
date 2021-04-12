@@ -33,13 +33,16 @@ class CategoryRepository
 
     public function findOneById(int $id): ?Category
     {
-        $sql = "Select * FROM author WHERE id = " . $id;
+        $sql = "Select * FROM category WHERE id = " . $id;
 
         $statement = $this->connection->prepare($sql);
         $statement->execute();
-        $authorinfo = $statement->fetch();
 
-        return $this->hydrate($authorinfo);
+        if(false !== $data = $statement->fetch()) {
+            return $this->hydrate($data);
+        }
+
+        return NULL;
     }
 
 
@@ -53,14 +56,14 @@ class CategoryRepository
         return $category;
     }
 
-    public function update(Category $author)
+    public function update(Category $category)
     {
-        $sql = "UPDATE author SET name = :name WHERE id = :id";
+        $sql = "UPDATE category SET title = :name WHERE id = :id";
 
         $statement = $this->connection->prepare($sql);
         if($statement->execute(array(
-            'name' => $author->getTitle(),
-            'id' => $author->getId(),
+            'name' => $category->getTitle(),
+            'id' => $category->getId(),
         ))) {
             return 1;
         } else {
@@ -71,7 +74,7 @@ class CategoryRepository
 
     public function delete(Category $author)
     {
-        $sql = "DELETE FROM author WHERE id = :id";
+        $sql = "DELETE FROM category WHERE id = :id";
 
         $statement = $this->connection->prepare($sql);
         if($statement->execute(array(

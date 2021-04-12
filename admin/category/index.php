@@ -51,15 +51,15 @@ $categories =  $repository->findAll();
                             # <?= $category->getId() ?>
                         </td>
                         <td>
-                            <a href="/admin/author/read.php?id=<?= $category->getId() ?>">
+                            <a href="/admin/category/read.php?id=<?= $category->getId() ?>">
                                 <?= $category->getTitle() ?>
                             </a>
                         </td>
                         <td class="text-right">
-                            <a href="/admin/author/update.php?id=<?= $category->getId() ?>" class="btn btn-sm btn-warning">
+                            <a href="/admin/category/update.php?id=<?= $category->getId() ?>" class="btn btn-sm btn-warning">
                                 Modifier
                             </a>
-                            <a href="/admin/author/delete.php?id=<?= $category->getId() ?>" class="btn btn-sm btn-danger">
+                            <a href="/admin/category/delete.php?id=<?= $category->getId() ?>" class="btn btn-sm btn-danger">
                                 Supprimer
                             </a>
                         </td>
